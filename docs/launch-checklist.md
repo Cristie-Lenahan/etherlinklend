@@ -24,16 +24,18 @@ owners before Shadownet deployment.
 
 | Gate | Primary owner | Reviewers | Due gate | Required evidence | Status |
 |---|---|---|---|---|---|
-| Upstream and licensing | Release owner | Legal reviewer, protocol engineer | Before Shadownet deployment | Upstream SHA table, license review notes, NOTICE delta, fork policy review | TODO |
-| Build and tests | Protocol engineer | Release owner | Every PR and before each deployment rehearsal | CI run, local command output where available, gas snapshot decision | TODO |
-| Security review | Security reviewer | Protocol engineer, external auditor | Before mainnet approval | Static-analysis results, fork-diff report, finding tracker, audit package | TODO |
-| Oracle readiness | Oracle reviewer | Risk owner, protocol engineer, monitoring owner | Before market approval | Feed proofs, decimals/freshness evidence, failure-mode tests, fallback decision | TODO |
-| Market readiness | Risk owner | Oracle reviewer, security reviewer, operations lead | Before Shadownet market creation | Asset reviews, market config, LLTV/IRM/cap rationale, liquidation assumptions | TODO |
-| Etherlink readiness | Operations lead | Deployment owner, monitoring owner | Before Shadownet deployment and again before mainnet | Chain/RPC/explorer proofs, failover plan, monitoring and bot readiness | TODO |
-| Deployment readiness | Deployment owner | Release owner, security reviewer | Before each broadcast | Dry-run evidence, admin/multisig proof, artifact validation, final approval | TODO |
-| Post-launch operations | Operations lead | Risk owner, monitoring owner | Before mainnet market visibility | Watch assignment, incident contacts, risk report cadence, public docs update | TODO |
+| Upstream and licensing | etherlink-intern | etherlink-intern | Before Shadownet deployment | Upstream SHA table, license review notes, NOTICE delta, fork policy review | TODO |
+| Build and tests | etherlink-intern | etherlink-intern | Every PR and before each deployment rehearsal | CI run, local command output where available, gas snapshot decision | TODO |
+| Security review | etherlink-intern | etherlink-intern | Before mainnet approval | Static-analysis results, fork-diff report, finding tracker, audit package | TODO |
+| Oracle readiness | etherlink-intern | etherlink-intern | Before market approval | Feed proofs, decimals/freshness evidence, failure-mode tests, fallback decision | TODO |
+| Market readiness | etherlink-intern | etherlink-intern | Before Shadownet market creation | Asset reviews, market config, LLTV/IRM/cap rationale, liquidation assumptions | TODO |
+| Etherlink readiness | etherlink-intern | etherlink-intern | Before Shadownet deployment and again before mainnet | Chain/RPC/explorer proofs, failover plan, monitoring and bot readiness | TODO |
+| Deployment readiness | etherlink-intern | etherlink-intern | Before each broadcast | Dry-run evidence, admin/multisig proof, artifact validation, final approval | TODO |
+| Post-launch operations | etherlink-intern | etherlink-intern | Before mainnet market visibility | Watch assignment, incident contacts, risk report cadence, public docs update | TODO |
 
 ## Evidence Log Format
+
+Every future checklist-closing PR MUST include an evidence log entry.
 
 Add evidence under the relevant checklist section or in a linked PR using this
 format. Keep command output concise, but include enough detail for a reviewer to
@@ -148,9 +150,3 @@ price WXTZ/USDC today**; see the Phase 3C options in the Pyth document.
 - [ ] Incident response contacts online.
 - [ ] Public docs updated.
 
-## Blocking TODOs
-
-- Owner: release owner. Action: replace role owners in the owner/date matrix
-  with named owners. Date: before Shadownet deployment.
-- Owner: release owner. Action: require every future checklist-closing PR to
-  include an evidence log entry. Date: effective immediately.
