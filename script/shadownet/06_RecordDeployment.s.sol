@@ -11,11 +11,9 @@ contract RecordShadownetDeployment is ShadownetScript {
         _logHeader("06_RecordDeployment");
 
         string memory runId = vm.envOr("SHADOWNET_RUN_ID", string("00000000-000000"));
-
-        string memory branchName = _getGitBranch();
-        string memory commit = _getGitCommit();
-        string memory upstreamMorpho = _getGitUpstreamMorphoCommit();
-
+        string memory branchName = vm.envOr("GIT_BRANCH", string("TODO"));
+        string memory commit = vm.envOr("GIT_COMMIT", string("TODO"));
+        string memory upstreamMorpho = vm.envOr("UPSTREAM_MORPHO_BLUE_COMMIT", string("TODO"));
         address deployer = _envAddressOrZero("DEPLOYER_ADDRESS");
         address morpho = _envAddressOrZero("SHADOWNET_MORPHO");
         address loanToken = _envAddressOrZero("SHADOWNET_LOAN_TOKEN");
@@ -135,65 +133,5 @@ contract RecordShadownetDeployment is ShadownetScript {
             "`\n\n",
             "This is Shadownet testnet only and is not production-ready.\n"
         );
-    }
-
-    function _getGitBranch() internal returns (string memory) {
-        if (vm.envExists("GIT_BRANCH")) {
-            return vm.envString("GIT_BRANCH");
-        }
-        string[] memory inputs = new string[](4);
-        inputs[0] = "git";
-        inputs[1] = "rev-parse";
-        inputs[2] = "--abbrev-ref";
-        inputs[3] = "HEAD";
-        bytes memory res = vm.ffi(inputs);
-        return _trimNewline(string(res));
-    }
-
-    function _getGitCommit() internal returns (string memory) {
-        if (vm.envExists("GIT_COMMIT")) {
-            return vm.envString("GIT_COMMIT");
-        }
-        string[] memory inputs = new string[](3);
-        inputs[0] = "git";
-        inputs[1] = "rev-parse";
-        inputs[2] = "HEAD";
-        bytes memory res = vm.ffi(inputs);
-        string memory hexStr = vm.toString(res);
-        return _substring(hexStr, 2, bytes(hexStr).length);
-    }
-
-    function _getGitUpstreamMorphoCommit() internal returns (string memory) {
-        if (vm.envExists("UPSTREAM_MORPHO_BLUE_COMMIT")) {
-            return vm.envString("UPSTREAM_MORPHO_BLUE_COMMIT");
-        }
-        string[] memory inputs = new string[](3);
-        inputs[0] = "git";
-        inputs[1] = "rev-parse";
-        inputs[2] = "HEAD:lib/morpho-blue";
-        bytes memory res = vm.ffi(inputs);
-        string memory hexStr = vm.toString(res);
-        return _substring(hexStr, 2, bytes(hexStr).length);
-    }
-
-    function _substring(string memory str, uint256 startIndex, uint256 endIndex) internal pure returns (string memory) {
-        bytes memory strBytes = bytes(str);
-        bytes memory result = new bytes(endIndex - startIndex);
-        for(uint256 i = startIndex; i < endIndex; i++) {
-            result[i - startIndex] = strBytes[i];
-        }
-        return string(result);
-    }
-
-    function _trimNewline(string memory str) internal pure returns (string memory) {
-        bytes memory strBytes = bytes(str);
-        if (strBytes.length > 0 && strBytes[strBytes.length - 1] == 0x0a) {
-            bytes memory newBytes = new bytes(strBytes.length - 1);
-            for (uint i = 0; i < strBytes.length - 1; i++) {
-                newBytes[i] = strBytes[i];
-            }
-            return string(newBytes);
-        }
-        return str;
     }
 }
